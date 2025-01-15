@@ -1,6 +1,6 @@
 # shell
 # Description
-This is an implementation of the Linux shell in C shell. It supports basic terminal commands and some couple commands. It also uses networking and piping concepts to make the terminal more diverse and robust to commands from the user. This project was taken up as a part of the Operating Systems and Networks course at IIITH Monsoon '23 semester. The documentation for the shell is given below
+This is an implementation of the Linux shell in C shell. It supports basic terminal commands. It also uses networking and piping concepts to make the terminal more diverse and robust to commands from the user. This project was taken up as a part of the Operating Systems and Networks course at IIITH Monsoon '24 semester. The documentation for the shell is given below
 
 
 ## Table of Contents
