@@ -1,5 +1,231 @@
 # shell
+# Description
+This is an implementation of the Linux shell in C shell. It supports basic terminal commands and some couple commands. It also uses networking and piping concepts to make the terminal more diverse and robust to commands from the user. This project was taken up as a part of the Operating Systems and Networks course at IIITH Monsoon '23 semester. The documentation for the shell is given below
 
+
+## Table of Contents
+- [hop Command](#hop-command)
+- [reveal Command](#reveal-command)
+- [log Command](#log-command)
+- [proclore Command](#proclore-command)
+- [I/O Redirection](#io-redirection)
+- [Pipes](#pipes)
+- [Redirection along with Pipes](#redirection-along-with-pipes)
+- [activities Command](#activities-command)
+- [ping Command](#ping-command)
+- [fg and bg Commands](#fg-and-bg-commands)
+- [neonate Command](#neonate-command)
+- [iMan Command](#iman-command)
+
+---
+
+### hop Command
+**Syntax:**
+```bash
+hop [flags] [directory]
+```
+**Flags:**
+- `.`: Current directory
+- `..`: Parent directory
+- `~`: Home directory
+- `-`: Previous directory
+
+**Description:**
+Changes the shell's working directory. Supports both absolute and relative paths.
+
+**Examples:**
+```bash
+hop test          # Changes to /home/user/test
+hop ../tutorial   # Changes to /home/user/tutorial
+hop ~             # Changes to /home/user
+hop -             # Changes to the previous directory
+```
+
+---
+
+### reveal Command
+**Syntax:**
+```bash
+reveal [flags] [path]
+```
+**Flags:**
+- `-a`: Show hidden files
+- `-l`: Display extra information
+
+**Description:**
+Lists files and directories in the specified directory. Supports flags for additional details and color-coded output.
+
+**Examples:**
+```bash
+reveal test              # Lists files and directories in /home/user/test
+reveal -a /usr/bin       # Lists hidden files in /usr/bin
+reveal -l ~              # Displays extra information in /home/user
+```
+
+---
+
+### log Command
+**Syntax:**
+```bash
+log
+log purge
+log execute <index>
+```
+**Description:**
+Stores and retrieves the 15 most recent commands. 'purge' clears stored commands. 'execute' runs a command from the history.
+
+**Examples:**
+```bash
+log            # Displays the command history
+log purge      # Clears the command history
+log execute 3  # Executes the command at index 3
+```
+
+---
+
+### proclore Command
+**Syntax:**
+```bash
+proclore [pid]
+```
+**Description:**
+Provides information about a process, including PID, status, process group, virtual memory, and executable path.
+
+**Examples:**
+```bash
+proclore             # Displays information about the shell process
+proclore 123         # Displays information about the process with PID 123
+```
+
+---
+
+### I/O Redirection
+**Syntax:**
+```bash
+command > output_file
+command >> output_file
+command < input_file
+```
+**Description:**
+Redirects command output to a file using `>`, appends with `>>`, and takes input from a file using `<`.
+
+**Examples:**
+```bash
+echo "Hello" > greeting.txt   # Writes "Hello" to greeting.txt
+wc < textfile.txt            # Counts words from textfile.txt
+```
+
+---
+
+### Pipes
+**Syntax:**
+```bash
+command1 | command2 | command3
+```
+**Description:**
+Passes output from `command1` as input to `command2`, and so on.
+
+**Examples:**
+```bash
+echo "Lorem Ipsum" | wc | sed 's/ //g'   # Processes output through multiple commands
+```
+
+---
+
+### Redirection along with Pipes
+**Syntax:**
+```bash
+command1 | command2 > output_file
+command1 < input_file | command2
+```
+**Description:**
+Combines I/O redirection with pipes for more advanced command sequences.
+
+**Examples:**
+```bash
+cat file.txt | wc > stats.txt   # Counts words in file.txt and writes to stats.txt
+```
+
+---
+
+### activities Command
+**Syntax:**
+```bash
+activities
+```
+**Description:**
+Prints a list of all processes spawned by the shell, including command name, PID, and state.
+
+**Examples:**
+```bash
+activities   # Displays information about currently running processes
+```
+
+---
+
+### ping Command
+**Syntax:**
+```bash
+ping <pid> <signal_number>
+```
+**Description:**
+Sends signals to processes based on PID and signal number.
+
+**Examples:**
+```bash
+ping 123 9    # Sends SIGKILL signal to process with PID 123
+ping 456 41   # Sends signal 9 to process with PID 456
+```
+
+---
+
+### fg and bg Commands
+**Syntax:**
+```bash
+fg <pid>
+bg <pid>
+```
+**Description:**
+`fg` brings a background process to the foreground, and `bg` changes a stopped background process to running.
+
+**Examples:**
+```bash
+fg 789    # Brings the background process with PID 789 to the foreground
+bg 789    # Changes the state of process with PID 789 to running (in the background)
+```
+
+---
+
+### neonate Command
+**Syntax:**
+```bash
+neonate -n <time_arg>
+```
+**Description:**
+Prints the Process-ID of the most recently created process every `<time_arg>` seconds until the key 'x' is pressed.
+
+**Examples:**
+```bash
+neonate -n 4   # Prints the PID every 4 seconds until 'x' is pressed
+```
+
+---
+
+### iMan Command
+**Syntax:**
+```bash
+iMan <command_name>
+```
+**Description:**
+Fetches man pages from http://man.he.net/ for the given command.
+
+**Examples:**
+```bash
+iMan sleep            # Retrieves the man page for the 'sleep' command
+iMan invalid_command  # Displays an error for a non-existing command
+```
+
+This detailed documentation provides users with clear information on each command's syntax, available flags, and usage examples. Include these details in your README file for user reference.
 
 
 
@@ -143,21 +369,6 @@ Calling fg or bg, would affect the whole pipeline of commands.
 
 
 
-Chat-gpt links : 
-Make file was obtained from a friend--
-https://chatgpt.com/share/c07d37b6-8df3-447d-bd70-ed1c2c022e71  
-
-https://chatgpt.com/share/2d14a179-4dc3-479a-85b1-facaf8f9eed4  
-
-For Neonate : https://chatgpt.com/share/66e46bf4-a580-8011-8710-d57b3cc3245e   
-
-For Raw_mode code and doubts regarding signal handling : https://chatgpt.com/share/66e5ac74-a0ac-8011-b0e7-d62f0baccef8
-
-For piping : https://stackoverflow.com/questions/8082932/connecting-n-commands-with-pipes-in-a-shell
-
-For iMan : https://stackoverflow.com/questions/33032893/fetching-a-web-page-using-c-socket-programming
-
-https://unix.stackexchange.com/questions/743002how-does-bash-recognize-background-child-processes-launched-by-a-foreground-proc
 
 
 
