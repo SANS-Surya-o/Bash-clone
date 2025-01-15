@@ -1,6 +1,6 @@
 # shell
 # Description
-This is an implementation of the Linux shell in C shell. It supports basic terminal commands. It also uses networking and piping concepts to make the terminal more diverse and robust to commands from the user. This project was taken up as a part of the Operating Systems and Networks course at IIITH Monsoon '24 semester. The documentation for the shell is given below
+This is an implementation of the Linux shell in C shell. It supports basic terminal commands. It also uses networking, piping and backgrounding concepts to make the terminal more diverse and robust to commands from the user. This project was taken up as a part of the Operating Systems and Networks course at IIITH Monsoon '24 semester. The documentation for the shell is given below
 
 
 ## Table of Contents
@@ -123,7 +123,7 @@ wc < textfile.txt            # Counts words from textfile.txt
 command1 | command2 | command3
 ```
 **Description:**
-Passes output from `command1` as input to `command2`, and so on.
+Passes output from `command1` as input to `command2`, and so on. Note that all the processes are spawned in parallel and the pipe systemcall ensures the information is passed sequentially using semaphores internally. See under assumptions for more details. Additionally, if '&' is placed after a pipeline, all the processes in it are backgrounded(i.e the entire pipeline is backgrounded) in accordance with the fucntioning of bash shell.
 
 **Examples:**
 ```bash
@@ -227,7 +227,7 @@ iMan invalid_command  # Displays an error for a non-existing command
 
 This detailed documentation provides users with clear information on each command's syntax, available flags, and usage examples. Include these details in your README file for user reference.
 
-
+## Assumptions:
 
 ### Note on Heap memory management:
 Special attention has been given to prevent memory leaks in this project. All allocated memory blocks are freed appropriately when they are no longer needed. However, some pointers, such as those for username and systemname, are designed to persist throughout the program’s execution. These pointers are not freed explicitly because the operating system automatically handles their deallocation upon program termination.
